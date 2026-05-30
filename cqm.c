@@ -16,6 +16,7 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
 		int wf;
 		int phase_in;
 		int phase;
+		int wave;
 
 		const uint8_t* access = regaccess[idx];
 		cqmslot_t* slot = &chip->slotz[idx];
@@ -25,6 +26,100 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
 		phase = slot->phase >> 3;
 
 		phase_in = phase;
+
+		{
+			int16_t mulb = 0;
+			int16_t mula = 0;
+			switch (wf)
+			{
+				case 0:
+					mulb = phase_in;
+					mula = mulb & 0x7fff;
+					if (!(phase_in & 0x8000))
+					{
+						mula ^= 0x7fff;
+					}
+					break;
+				case 1:
+					mulb = phase_in;
+					mula = mulb ^ 0x8000;
+					if (!(phase_in & 0x8000))
+					{
+						mula = 0;
+					}
+					break;
+				case 2:
+					mulb = phase_in;
+					mula = mulb ^ 0x8000;
+					break;
+				case 3:
+					mulb = phase_in;
+					mula = mulb ^ 0x8000;
+					if (phase_in & 0x4000)
+					{
+						mula = 0;
+					}
+					break;
+				case 4:
+					mulb = (phase_in << 1) & 0x7fff;
+					if (!(phase_in & 0x4000))
+					{
+						mulb |= 0x8000;
+					}
+					mula = mulb & 0x7fff;
+					if (phase_in & 0x4000)
+					{
+						mula ^= 0x7fff;
+					}
+					if (!(phase_in & 0x8000))
+					{
+						mula = 0;
+					}
+					break;
+				case 5:
+					mulb = (phase_in << 1) & 0x7fff;
+					if (!(phase_in & 0x4000))
+					{
+						mulb |= 0x8000;
+					}
+					mula = mulb ^ 0x8000;
+					if (!(phase_in & 0x8000))
+					{
+						mula = 0;
+					}
+					break;
+				case 6:
+					mulb = 0x3fff;
+					mula = mulb ^ 0x8000;
+					if (!(phase_in & 0x8000))
+					{
+						mula &= 0x7fff;
+					}
+					break;
+				case 7:
+					mulb = phase_in & 0x3fff;
+					if (!(phase_in & 0x4000))
+					{
+						mulb |= 0xc000;
+					}
+					mula = mulb & 0x7fff;
+					if (!(phase_in & 0x4000))
+					{
+						mula ^= 0x7fff;
+					}
+					if (!((phase_in ^ (phase_in >> 1)) & 0x4000))
+					{
+						mula = 0;
+					}
+					break;
+			}
+
+			mulb >>= 2;
+			if (mulb < 0)
+				mulb++;
+
+			wave = (mula * mulb) >> 12;
+		}
 
 	}
 
@@ -84,7 +179,7 @@ void CQM_Write(cqm_t* chip, uint32_t address, uint8_t data)
 	}
 }
 
-uint8_t CQM_Write(cqm_t* chip, uint32_t address)
+uint8_t CQM_Read(cqm_t* chip, uint32_t address)
 {
 	return 0;
 }
