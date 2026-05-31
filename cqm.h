@@ -6,7 +6,7 @@ typedef struct
 {
 	uint32_t env;
 	uint32_t phase;
-	uint32_t fb[2];
+	int32_t mod[2];
 } cqmslot_t;
 
 typedef struct
@@ -20,5 +20,8 @@ typedef struct
 	uint8_t rhy;
 	uint8_t mode;
 	uint8_t key[18];
+	uint32_t keyl;
+	uint32_t okeyl;
+	uint16_t counter;
 } cqm_t;
 
