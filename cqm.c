@@ -625,7 +625,7 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
 
 				if (state == eg_state_attack)
 				{
-					if ((env && 0x1c000) == 0x1c000)
+					if ((env & 0x1c000) == 0x1c000)
 						shift++;
 					else
 						shift += 4;
