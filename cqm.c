@@ -108,7 +108,7 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
 	int con = 0;
 	int con_prev = 0;
 	int isrhy = (chip->rhy & 0x20) != 0;
-	int wave_prev = 0;
+	int accum[2] = { 0, 0 };
 
 	chip->okeyl = chip->keyl;
 	chip->keyl = (chip->key[0] << 0);
@@ -206,7 +206,7 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
 			modptr[1] = 0;
 		}
 		else if (op != 0)
-			modptr[chip->oddeven ^ 1] = wave_prev;
+			modptr[chip->oddeven ^ 1] = chip->wavesample;
 
 		{
 			int wf;
@@ -214,8 +214,41 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
 			int phase;
 			wf = chip->regs[access[0]];
 			phase = slot->phase >> 3;
-
 			phase_in = phase;
+
+			if (chip->rhy)
+			{
+				int nbit = chip->noise & 1;
+				switch (idx)
+				{
+					// hh
+					case 20:
+						phase_in = 0x1000 | (nbit << 13) | (chip->rhy_bit << 15);
+
+						chip->hh_bit1 = (slot->phase >> 12) & 1;
+						chip->hh_bit2 = (~(slot->phase >> 16) ^ (slot->phase >> 11)) & 1;
+						break;
+					// sd
+					case 21:
+						phase_in = (nbit << 17) | ((phase_in << 1) & 0x8000);
+						break;
+					// tc
+					case 23:
+					{
+						int b1 = (slot->phase >> 12) & 1;
+						int b2 = (slot->phase >> 14) & 1;
+
+						phase_in = (chip->rhy_bit << 15) | 0x2000;
+
+						chip->rhy_bit = !(
+							(!(b1 && b2 && chip->hh_bit1) && (b1 || b2 || chip->hh_bit1))
+							|| chip->hh_bit2
+							);
+						break;
+					}
+				}
+			}
+
 			int16_t mulb = 0;
 			int16_t mula = 0;
 			switch (wf)
@@ -393,7 +426,11 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
 		int modadd = modptr[chip->oddeven];
 
 		int fb = (fb_con >> 1) & 7;
-		if ((op == 0 && fb == 0) || x) // no modulation
+		if ((op == 0 && fb == 0)
+			|| (isrhy && (ch == 7 || ch == 8))
+			|| (con && (op == 1 || (op == 3 && con_prev)))
+			|| (op == 2 && con && !con_prev)
+			) // no modulation
 		{
 			modsub = 0;
 			modadd = 0;
@@ -634,7 +671,50 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
 			slot->env = env | (nextstate << 17);
 		}
 
-		wave_prev = wave;
+		{
+			//w1338 && (!(is4op&& op == 1) || con); // is4op && op==1 && con ->mute
+
+			if (chip->dooutput && !(chip->is4op2 && !con))
+			{
+				int sumwave = doshifter(chip->wavesample << 5, chip->waveshift);
+
+				if (chip->wavepan & 1)
+					accum[0] += sumwave;
+				if (chip->wavepan & 2)
+					accum[1] += sumwave;
+			}
+
+			chip->waveshift = 7;
+			if (isrhy && ch >= 6 && ch < 9)
+				chip->waveshift++;
+			chip->wavesample = wave;
+			chip->wavepan = (fb_con >> 4) & 1;
+			chip->is4op2 = is4op && op == 1;
+			int doout = 0;
+			switch (op)
+			{
+			case 0:
+				doout = (isrhy && (ch == 7 || ch == 8))
+					|| (con && !(isrhy && ch == 6));
+				break;
+			case 1:
+				doout = !is4op || !con;
+				break;
+			case 2:
+				doout = con && con_prev;
+				break;
+			case 3:
+				doout = 1;
+				break;
+			}
+			chip->dooutput = doout;
+		}
+
+		{
+			// FIXME: runs 13 times per slot on real chip
+			uint32_t bit = ((chip->noise >> 10) ^ (chip->noise >> 17)) & 1;
+			chip->noise = (chip->noise << 1) | bit;
+		}
 	}
 
 	chip->oddeven ^= 1;
@@ -656,6 +736,21 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
 			}
 		}
 	}
+
+	accum[0] >>= 1;
+	if (accum[0] < -32768)
+		accum[0] = -32768;
+	else if (accum[0] > 32767)
+		accum[0] = 32767;
+
+	accum[1] >>= 1;
+	if (accum[1] < -32768)
+		accum[1] = -32768;
+	else if (accum[1] > 32767)
+		accum[1] = 32767;
+
+	sample[0] = (int16_t)accum[0];
+	sample[1] = (int16_t)accum[1];
 }
 
 void CQM_Write(cqm_t* chip, uint32_t address, uint8_t data)
@@ -718,8 +813,14 @@ uint8_t CQM_Read(cqm_t* chip, uint32_t address)
 
 void CQM_Reset(cqm_t* chip)
 {
+	int i;
 	memset(chip, 0, sizeof(cqm_t));
+	for (i = 0; i < 18; i++)
+	{
+		chip->regs[regmap[0xc0 + (i % 9) + ((i / 9) << 8)]] = 0x30;
+	}
 
 	chip->counter = 0xfff;
 	chip->trem_cnt = 0x3f;
+	chip->noise = 0x3ffff;
 }

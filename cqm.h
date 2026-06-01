@@ -27,5 +27,14 @@ typedef struct
 	uint8_t trem_cnt2;
 	uint8_t trem_cnt3;
 	uint8_t trem_cnt;
+	int32_t dooutput;
+	int32_t wavesample;
+	int32_t waveshift;
+	uint8_t wavepan;
+	uint8_t is4op2;
+	uint32_t noise;
+	uint8_t hh_bit1;
+	uint8_t hh_bit2;
+	uint8_t rhy_bit;
 } cqm_t;
 
