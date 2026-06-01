@@ -2,6 +2,10 @@
 
 #include <stdint.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct
 {
 	int32_t env;
@@ -28,6 +32,7 @@ typedef struct
 	uint8_t trem_cnt3;
 	uint8_t trem_cnt;
 	int32_t dooutput;
+	int32_t wave_prev;
 	int32_t wavesample;
 	int32_t waveshift;
 	uint8_t wavepan;
@@ -38,3 +43,11 @@ typedef struct
 	uint8_t rhy_bit;
 } cqm_t;
 
+
+void CQM_Reset(cqm_t* chip);
+void CQM_Write(cqm_t* chip, uint32_t address, uint8_t data);
+void CQM_Generate(cqm_t* chip, int16_t* sample);
+
+#ifdef __cplusplus
+}
+#endif
