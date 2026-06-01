@@ -387,7 +387,7 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
 
 			if (ksltl & 0xc0)
 			{
-				static const uint8_t ksl_shift[4] = { 0, 2, 1 ,0 };
+				static const uint8_t ksl_shift[4] = { 0, 1, 2, 0 };
 				static const uint8_t ksl_table[16][8] = {
 					0, 0, 0, 0, 0, 0, 0, 0,
 					0, 0, 0, 0, 0, 0, 0, 0,
@@ -602,9 +602,9 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
 			int dostep = 0;
 			if (ratesum & 32)
 				dostep = 1;
-			else if (chip->oddeven)
+			else
 			{
-				dostep = ((chip->counter & 1) == 0 || (ratesum & 28) == 28)
+				dostep = chip->oddeven && ((chip->counter & 1) == 0 || (ratesum & 28) == 28)
 					&& ((chip->counter & 2) == 0 || (ratesum & 24) == 24)
 					&& ((chip->counter & 4) == 0 || ((ratesum & 16) != 0 && (ratesum & 12) != 0))
 					&& ((chip->counter & 8) == 0 || (ratesum & 16) != 0)
@@ -624,7 +624,14 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
 					shift = (ratesum >> 2) & 7;
 
 				if (state == eg_state_attack)
-					shift++;
+				{
+					if ((env && 0x1c000) == 0x1c000)
+						shift++;
+					else
+						shift += 4;
+					if ((env & 0x10000) == 0 || (env & 0xe000) == 0xc000)
+						shift += 2;
+				}
 
 				inc = doshifter(inc, shift);
 			}
