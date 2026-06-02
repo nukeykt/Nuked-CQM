@@ -34,7 +34,7 @@
 extern "C" {
 #endif
 
-#define CQM_WRITEBUF_SIZE   1024
+#define CQM_WRITEBUF_SIZE   2048
 #define CQM_WRITEBUF_DELAY  2
 
 typedef struct
