@@ -32,71 +32,71 @@
 #define RSM_FRAC    10
 
 static const uint8_t regaccess[48][9] = {
-    0x00, 0xc0, 0xa0, 0xb0, 0x20, 0x00, 0x40, 0x60, 0x80,
-    0x10, 0xc0, 0xa0, 0xb0, 0x30, 0x10, 0x50, 0x70, 0x90,
-    0x06, 0xc6, 0xa0, 0xb0, 0x26, 0x06, 0x46, 0x66, 0x86,
-    0x16, 0xc6, 0xa0, 0xb0, 0x36, 0x16, 0x56, 0x76, 0x96,
+    {0x00, 0xc0, 0xa0, 0xb0, 0x20, 0x00, 0x40, 0x60, 0x80},
+    {0x10, 0xc0, 0xa0, 0xb0, 0x30, 0x10, 0x50, 0x70, 0x90},
+    {0x06, 0xc6, 0xa0, 0xb0, 0x26, 0x06, 0x46, 0x66, 0x86},
+    {0x16, 0xc6, 0xa0, 0xb0, 0x36, 0x16, 0x56, 0x76, 0x96},
 
-    0x02, 0xc2, 0xa2, 0xb2, 0x22, 0x02, 0x42, 0x62, 0x82,
-    0x12, 0xc2, 0xa2, 0xb2, 0x32, 0x12, 0x52, 0x72, 0x92,
-    0x08, 0xc8, 0xa2, 0xb2, 0x28, 0x08, 0x48, 0x68, 0x88,
-    0x18, 0xc8, 0xa2, 0xb2, 0x38, 0x18, 0x58, 0x78, 0x98,
+    {0x02, 0xc2, 0xa2, 0xb2, 0x22, 0x02, 0x42, 0x62, 0x82},
+    {0x12, 0xc2, 0xa2, 0xb2, 0x32, 0x12, 0x52, 0x72, 0x92},
+    {0x08, 0xc8, 0xa2, 0xb2, 0x28, 0x08, 0x48, 0x68, 0x88},
+    {0x18, 0xc8, 0xa2, 0xb2, 0x38, 0x18, 0x58, 0x78, 0x98},
 
-    0x04, 0xc4, 0xa4, 0xb4, 0x24, 0x04, 0x44, 0x64, 0x84,
-    0x14, 0xc4, 0xa4, 0xb4, 0x34, 0x14, 0x54, 0x74, 0x94,
-    0x0a, 0xca, 0xa4, 0xb4, 0x2a, 0x0a, 0x4a, 0x6a, 0x8a,
-    0x1a, 0xca, 0xa4, 0xb4, 0x3a, 0x1a, 0x5a, 0x7a, 0x9a,
+    {0x04, 0xc4, 0xa4, 0xb4, 0x24, 0x04, 0x44, 0x64, 0x84},
+    {0x14, 0xc4, 0xa4, 0xb4, 0x34, 0x14, 0x54, 0x74, 0x94},
+    {0x0a, 0xca, 0xa4, 0xb4, 0x2a, 0x0a, 0x4a, 0x6a, 0x8a},
+    {0x1a, 0xca, 0xa4, 0xb4, 0x3a, 0x1a, 0x5a, 0x7a, 0x9a},
 
-    0x06, 0xc6, 0xa6, 0xb6, 0x26, 0x06, 0x46, 0x66, 0x86,
-    0x16, 0xc6, 0xa6, 0xb6, 0x36, 0x16, 0x56, 0x76, 0x96,
+    {0x06, 0xc6, 0xa6, 0xb6, 0x26, 0x06, 0x46, 0x66, 0x86},
+    {0x16, 0xc6, 0xa6, 0xb6, 0x36, 0x16, 0x56, 0x76, 0x96},
 
-    0x08, 0xc8, 0xa8, 0xb8, 0x28, 0x08, 0x48, 0x68, 0x88,
-    0x18, 0xc8, 0xa8, 0xb8, 0x38, 0x18, 0x58, 0x78, 0x98,
+    {0x08, 0xc8, 0xa8, 0xb8, 0x28, 0x08, 0x48, 0x68, 0x88},
+    {0x18, 0xc8, 0xa8, 0xb8, 0x38, 0x18, 0x58, 0x78, 0x98},
 
-    0x0a, 0xca, 0xaa, 0xba, 0x2a, 0x0a, 0x4a, 0x6a, 0x8a,
-    0x1a, 0xca, 0xaa, 0xba, 0x3a, 0x1a, 0x5a, 0x7a, 0x9a,
+    {0x0a, 0xca, 0xaa, 0xba, 0x2a, 0x0a, 0x4a, 0x6a, 0x8a},
+    {0x1a, 0xca, 0xaa, 0xba, 0x3a, 0x1a, 0x5a, 0x7a, 0x9a},
 
-    0x0c, 0xcc, 0xac, 0xbc, 0x2c, 0x0c, 0x4c, 0x6c, 0x8c,
-    0x1c, 0xcc, 0xac, 0xbc, 0x3c, 0x1c, 0x5c, 0x7c, 0x9c,
+    {0x0c, 0xcc, 0xac, 0xbc, 0x2c, 0x0c, 0x4c, 0x6c, 0x8c},
+    {0x1c, 0xcc, 0xac, 0xbc, 0x3c, 0x1c, 0x5c, 0x7c, 0x9c},
 
-    0x0e, 0xce, 0xae, 0xbe, 0x2e, 0x0e, 0x4e, 0x6e, 0x8e,
-    0x1e, 0xce, 0xae, 0xbe, 0x3e, 0x1e, 0x5e, 0x7e, 0x9e,
+    {0x0e, 0xce, 0xae, 0xbe, 0x2e, 0x0e, 0x4e, 0x6e, 0x8e},
+    {0x1e, 0xce, 0xae, 0xbe, 0x3e, 0x1e, 0x5e, 0x7e, 0x9e},
 
-    0xd0, 0xe8, 0xe4, 0xe6, 0xd4, 0xd0, 0xd8, 0xdc, 0xe0,
-    0xd2, 0xe8, 0xe4, 0xe6, 0xd6, 0xd2, 0xda, 0xde, 0xe2,
+    {0xd0, 0xe8, 0xe4, 0xe6, 0xd4, 0xd0, 0xd8, 0xdc, 0xe0},
+    {0xd2, 0xe8, 0xe4, 0xe6, 0xd6, 0xd2, 0xda, 0xde, 0xe2},
 
-    0x01, 0xc1, 0xa1, 0xb1, 0x21, 0x01, 0x41, 0x61, 0x81,
-    0x11, 0xc1, 0xa1, 0xb1, 0x31, 0x11, 0x51, 0x71, 0x91,
-    0x07, 0xc7, 0xa1, 0xb1, 0x27, 0x07, 0x47, 0x67, 0x87,
-    0x17, 0xc7, 0xa1, 0xb1, 0x37, 0x17, 0x57, 0x77, 0x97,
+    {0x01, 0xc1, 0xa1, 0xb1, 0x21, 0x01, 0x41, 0x61, 0x81},
+    {0x11, 0xc1, 0xa1, 0xb1, 0x31, 0x11, 0x51, 0x71, 0x91},
+    {0x07, 0xc7, 0xa1, 0xb1, 0x27, 0x07, 0x47, 0x67, 0x87},
+    {0x17, 0xc7, 0xa1, 0xb1, 0x37, 0x17, 0x57, 0x77, 0x97},
 
-    0x03, 0xc3, 0xa3, 0xb3, 0x23, 0x03, 0x43, 0x63, 0x83,
-    0x13, 0xc3, 0xa3, 0xb3, 0x33, 0x13, 0x53, 0x73, 0x93,
-    0x09, 0xc9, 0xa3, 0xb3, 0x29, 0x09, 0x49, 0x69, 0x89,
-    0x19, 0xc9, 0xa3, 0xb3, 0x39, 0x19, 0x59, 0x79, 0x99,
+    {0x03, 0xc3, 0xa3, 0xb3, 0x23, 0x03, 0x43, 0x63, 0x83},
+    {0x13, 0xc3, 0xa3, 0xb3, 0x33, 0x13, 0x53, 0x73, 0x93},
+    {0x09, 0xc9, 0xa3, 0xb3, 0x29, 0x09, 0x49, 0x69, 0x89},
+    {0x19, 0xc9, 0xa3, 0xb3, 0x39, 0x19, 0x59, 0x79, 0x99},
 
-    0x05, 0xc5, 0xa5, 0xb5, 0x25, 0x05, 0x45, 0x65, 0x85,
-    0x15, 0xc5, 0xa5, 0xb5, 0x35, 0x15, 0x55, 0x75, 0x95,
-    0x0b, 0xcb, 0xa5, 0xb5, 0x2b, 0x0b, 0x4b, 0x6b, 0x8b,
-    0x1b, 0xcb, 0xa5, 0xb5, 0x3b, 0x1b, 0x5b, 0x7b, 0x9b,
+    {0x05, 0xc5, 0xa5, 0xb5, 0x25, 0x05, 0x45, 0x65, 0x85},
+    {0x15, 0xc5, 0xa5, 0xb5, 0x35, 0x15, 0x55, 0x75, 0x95},
+    {0x0b, 0xcb, 0xa5, 0xb5, 0x2b, 0x0b, 0x4b, 0x6b, 0x8b},
+    {0x1b, 0xcb, 0xa5, 0xb5, 0x3b, 0x1b, 0x5b, 0x7b, 0x9b},
 
-    0x07, 0xc7, 0xa7, 0xb7, 0x27, 0x07, 0x47, 0x67, 0x87,
-    0x17, 0xc7, 0xa7, 0xb7, 0x37, 0x17, 0x57, 0x77, 0x97,
+    {0x07, 0xc7, 0xa7, 0xb7, 0x27, 0x07, 0x47, 0x67, 0x87},
+    {0x17, 0xc7, 0xa7, 0xb7, 0x37, 0x17, 0x57, 0x77, 0x97},
 
-    0x09, 0xc9, 0xa9, 0xb9, 0x29, 0x09, 0x49, 0x69, 0x89,
-    0x19, 0xc9, 0xa9, 0xb9, 0x39, 0x19, 0x59, 0x79, 0x99,
+    {0x09, 0xc9, 0xa9, 0xb9, 0x29, 0x09, 0x49, 0x69, 0x89},
+    {0x19, 0xc9, 0xa9, 0xb9, 0x39, 0x19, 0x59, 0x79, 0x99},
 
-    0x0b, 0xcb, 0xab, 0xbb, 0x2b, 0x0b, 0x4b, 0x6b, 0x8b,
-    0x1b, 0xcb, 0xab, 0xbb, 0x3b, 0x1b, 0x5b, 0x7b, 0x9b,
+    {0x0b, 0xcb, 0xab, 0xbb, 0x2b, 0x0b, 0x4b, 0x6b, 0x8b},
+    {0x1b, 0xcb, 0xab, 0xbb, 0x3b, 0x1b, 0x5b, 0x7b, 0x9b},
 
-    0x0d, 0xcd, 0xad, 0xbd, 0x2d, 0x0d, 0x4d, 0x6d, 0x8d,
-    0x1d, 0xcd, 0xad, 0xbd, 0x3d, 0x1d, 0x5d, 0x7d, 0x9d,
+    {0x0d, 0xcd, 0xad, 0xbd, 0x2d, 0x0d, 0x4d, 0x6d, 0x8d},
+    {0x1d, 0xcd, 0xad, 0xbd, 0x3d, 0x1d, 0x5d, 0x7d, 0x9d},
 
-    0x0f, 0xcf, 0xaf, 0xbf, 0x2f, 0x0f, 0x4f, 0x6f, 0x8f,
-    0x1f, 0xcf, 0xaf, 0xbf, 0x3f, 0x1f, 0x5f, 0x7f, 0x9f,
+    {0x0f, 0xcf, 0xaf, 0xbf, 0x2f, 0x0f, 0x4f, 0x6f, 0x8f},
+    {0x1f, 0xcf, 0xaf, 0xbf, 0x3f, 0x1f, 0x5f, 0x7f, 0x9f},
 
-    0xd1, 0xe9, 0xe5, 0xe7, 0xd5, 0xd1, 0xd9, 0xdd, 0xe1,
-    0xd3, 0xe9, 0xe5, 0xe7, 0xd7, 0xd3, 0xdb, 0xdf, 0xe3
+    {0xd1, 0xe9, 0xe5, 0xe7, 0xd5, 0xd1, 0xd9, 0xdd, 0xe1},
+    {0xd3, 0xe9, 0xe5, 0xe7, 0xd7, 0xd3, 0xdb, 0xdf, 0xe3}
 };
 
 static const uint8_t regmap[512] = {
@@ -138,15 +138,19 @@ enum {
     eg_state_attack = 3,
     eg_state_decay = 2,
     eg_state_sustain = 1,
-    eg_state_release = 0,
+    eg_state_release = 0
 };
 
+#if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
 static inline int doshifter(int x, int shift)
 {
     if (shift > 12)
         return x << (shift - 12);
     return x >> (12 - shift);
 }
+#else
+#   define doshifter(x, shift) (shift > 12 ? (x << (shift - 12)) : (x >> (12 - shift)))
+#endif
 
 void CQM_Generate(cqm_t* chip, int16_t* sample)
 {
@@ -178,6 +182,7 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
     chip->keyl |= (chip->key[15] << 17);
     chip->keyl |= (chip->key[16] << 18);
     chip->keyl |= (chip->key[17] << 19);
+
     if (isrhy)
     {
         if (chip->rhy & 1)
@@ -194,11 +199,22 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
 
     for (idx = 0; idx < 48; idx++)
     {
-        int wave;
+        int wave, key, kon;
+        int pmulti, fnum_lo, fnum_hi, fnum, block, multi;
+        int fb_con, phase, modsub, modadd, fb, modshift, fnum_ps;
+        int shift_l;
 
         int ch = 0;
         int op = 0;
         int is4op = 0;
+
+        static const int multi_shift_add1[] = {
+            0, 1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 5, 5
+        };
+
+        static const int multi_shift_add2[] = {
+            0, 0, 0, 1, 0, 1, 2, -1, 0, 1, 2, 2, 3, 3, -1, -1
+        };
 
         const uint8_t* access = regaccess[idx];
         cqmslot_t* slot = &chip->slotz[idx];
@@ -249,8 +265,8 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
         else
             keybit = ch + 2;
 
-        int key = (chip->keyl >> keybit) & 1;
-        int kon = key && !(chip->okeyl & (1 << keybit));
+        key = (chip->keyl >> keybit) & 1;
+        kon = key && !(chip->okeyl & (1 << keybit));
 
         if (kon)
         {
@@ -264,6 +280,8 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
             int wf;
             int phase_in;
             int phase;
+            int16_t mulb, mula;
+
             wf = chip->regs[access[0]];
             phase = slot->phase >> 3;
             phase_in = phase;
@@ -273,18 +291,18 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
                 int nbit = chip->noise & 1;
                 switch (idx)
                 {
-                    // hh
+                    /* hh */
                     case 20:
                         phase_in = 0x1000 | (nbit << 13) | (chip->rhy_bit << 15);
 
                         chip->hh_bit1 = (slot->phase >> 12) & 1;
                         chip->hh_bit2 = (~(slot->phase >> 16) ^ (slot->phase >> 11)) & 1;
                         break;
-                    // sd
+                    /* sd */
                     case 21:
                         phase_in = (nbit << 14) | ((phase_in << 1) & 0x8000);
                         break;
-                    // tc
+                    /* tc */
                     case 23:
                     {
                         int b1 = (slot->phase >> 12) & 1;
@@ -301,13 +319,14 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
                 }
             }
 
-            int16_t mulb = 0;
-            int16_t mula = 0;
+            mulb = 0;
+            mula = 0;
             switch (wf)
             {
                 case 0:
                     mulb = phase_in;
                     mula = mulb & 0x7fff;
+
                     if (!(phase_in & 0x8000))
                     {
                         mula ^= 0x7fff;
@@ -316,6 +335,7 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
                 case 1:
                     mulb = phase_in;
                     mula = mulb ^ 0x8000;
+
                     if (!(phase_in & 0x8000))
                     {
                         mula = 0;
@@ -328,6 +348,7 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
                 case 3:
                     mulb = phase_in;
                     mula = mulb ^ 0x8000;
+
                     if (phase_in & 0x4000)
                     {
                         mula = 0;
@@ -335,15 +356,19 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
                     break;
                 case 4:
                     mulb = (phase_in << 1) & 0x7fff;
+
                     if (!(phase_in & 0x4000))
                     {
                         mulb |= 0x8000;
                     }
+
                     mula = mulb & 0x7fff;
+
                     if (phase_in & 0x4000)
                     {
                         mula ^= 0x7fff;
                     }
+
                     if (!(phase_in & 0x8000))
                     {
                         mula = 0;
@@ -351,11 +376,14 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
                     break;
                 case 5:
                     mulb = (phase_in << 1) & 0x7fff;
+
                     if (!(phase_in & 0x4000))
                     {
                         mulb |= 0x8000;
                     }
+
                     mula = mulb ^ 0x8000;
+
                     if (!(phase_in & 0x8000))
                     {
                         mula = 0;
@@ -371,15 +399,19 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
                     break;
                 case 7:
                     mulb = phase_in & 0x3fff;
+
                     if (!(phase_in & 0x4000))
                     {
                         mulb |= 0xc000;
                     }
+
                     mula = mulb & 0x7fff;
+
                     if (!(phase_in & 0x4000))
                     {
                         mula ^= 0x7fff;
                     }
+
                     if (!((phase_in ^ (phase_in >> 1)) & 0x4000))
                     {
                         mula = 0;
@@ -394,21 +426,22 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
             wave = (mula * mulb) >> 12;
         }
 
-        int pmulti = chip->regs[access[4]];
+        pmulti = chip->regs[access[4]];
 
-        int fnum_lo = chip->regs[access[2]];
-        int fnum_hi = chip->regs[access[3]];
+        fnum_lo = chip->regs[access[2]];
+        fnum_hi = chip->regs[access[3]];
 
-        int fnum = fnum_lo | ((fnum_hi & 3) << 8);
-        int block = (fnum_hi >> 2) & 7;
+        fnum = fnum_lo | ((fnum_hi & 3) << 8);
+        block = (fnum_hi >> 2) & 7;
 
         {
+            int gain, shift;
             int env = slot->env & 0x1ffff;
             int ksltl = chip->regs[access[6]];
 
             env -= (ksltl & 63) << 10;
 
-            // tremolo
+            /* tremolo */
             if (pmulti & 0x80)
             {
                 int trem = (chip->trem_cnt >> 1) & 15;
@@ -424,22 +457,22 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
             {
                 static const uint8_t ksl_shift[4] = { 0, 1, 2, 0 };
                 static const uint8_t ksl_table[16][8] = {
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 8, 16, 24, 32,
-                    0, 0, 0, 4, 12, 20, 28, 36,
-                    0, 0, 0, 8, 16, 24, 32, 40,
-                    0, 0, 2, 10, 18, 26, 50, 58,
-                    0, 0, 4, 12, 20, 28, 36, 44,
-                    0, 0, 6, 14, 22, 30, 38, 46,
-                    0, 0, 8, 16, 24, 32, 40, 48,
-                    0, 1, 9, 17, 25, 33, 41, 49,
-                    0, 2, 10, 18, 26, 34, 42, 50,
-                    0, 3, 11, 19, 27, 35, 43, 51,
-                    0, 4, 12, 20, 28, 36, 44, 52,
-                    0, 5, 13, 21, 29, 37, 45, 53,
-                    0, 6, 14, 22, 30, 38, 46, 54,
-                    0, 7, 15, 23, 31, 39, 47, 55
+                    {0, 0, 0, 0, 0, 0, 0, 0},
+                    {0, 0, 0, 0, 0, 0, 0, 0},
+                    {0, 0, 0, 0, 8, 16, 24, 32},
+                    {0, 0, 0, 4, 12, 20, 28, 36},
+                    {0, 0, 0, 8, 16, 24, 32, 40},
+                    {0, 0, 2, 10, 18, 26, 50, 58},
+                    {0, 0, 4, 12, 20, 28, 36, 44},
+                    {0, 0, 6, 14, 22, 30, 38, 46},
+                    {0, 0, 8, 16, 24, 32, 40, 48},
+                    {0, 1, 9, 17, 25, 33, 41, 49},
+                    {0, 2, 10, 18, 26, 34, 42, 50},
+                    {0, 3, 11, 19, 27, 35, 43, 51},
+                    {0, 4, 12, 20, 28, 36, 44, 52},
+                    {0, 5, 13, 21, 29, 37, 45, 53},
+                    {0, 6, 14, 22, 30, 38, 46, 54},
+                    {0, 7, 15, 23, 31, 39, 47, 55}
                 };
                 int kslv = ksl_table[fnum >> 6][block];
                 env -= (kslv << 10) >> ksl_shift[ksltl >> 6];
@@ -448,8 +481,8 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
             if (env < 0)
                 env = 0;
 
-            int gain = (env & 0x1fff) | 0x2000;
-            int shift = 15 - (env >> 13);
+            gain = (env & 0x1fff) | 0x2000;
+            shift = 15 - (env >> 13);
             gain = (gain << 1) >> shift;
 
             wave >>= 3;
@@ -461,7 +494,7 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
             slot->mod[0] = slot->mod[1] = 0;
         }
 
-        int multi = (isrhy && ch == 7 && op == 1) ? multi_l : pmulti & 15;
+        multi = (isrhy && ch == 7 && op == 1) ? multi_l : pmulti & 15;
 
         multi_l = pmulti & 15;
 
@@ -469,25 +502,27 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
         {
             con_prev = con;
         }
-        int fb_con = chip->regs[access[1]];
+
+        fb_con = chip->regs[access[1]];
         con = fb_con & 1;
 
-        int phase = slot->phase;
+        phase = slot->phase;
 
-        int modsub = modptr[chip->oddeven ^ 1];
-        int modadd = modptr[chip->oddeven];
+        modsub = modptr[chip->oddeven ^ 1];
+        modadd = modptr[chip->oddeven];
 
-        int fb = (fb_con >> 1) & 7;
+        fb = (fb_con >> 1) & 7;
         if ((op == 0 && fb == 0)
             || (isrhy && (ch == 7 || ch == 8))
             || (con && (op == 1 || (op == 3 && con_prev)))
             || (op == 2 && con && !con_prev)
-            ) // no modulation
+            ) /* no modulation */
         {
             modsub = 0;
             modadd = 0;
         }
-        int modshift = 0;
+
+        /*modshift = 0; Value is never read */
         if (op == 0)
         {
             modshift = fb + 6;
@@ -510,11 +545,12 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
             phase += modadd;
         }
 
-        // fnum
-        int fnum_ps = fnum << 8;
+        /* fnum */
+        fnum_ps = fnum << 8;
         if (block == 0)
-            fnum_ps &= ~256; // mask fnum0
+            fnum_ps &= ~256; /* mask fnum0 */
 
+        /* // Moved to a begin of this block at above
         static const int multi_shift_add1[] = {
             0, 1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 5, 5
         };
@@ -522,8 +558,9 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
         static const int multi_shift_add2[] = {
             0, 0, 0, 1, 0, 1, 2, -1, 0, 1, 2, 2, 3, 3, -1, -1
         };
+        */
 
-        int shift_l = block + 2 + multi_shift_add1[multi];
+        shift_l = block + 2 + multi_shift_add1[multi];
 
         phase += doshifter(fnum_ps, shift_l);
 
@@ -531,12 +568,15 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
         {
             int mshift = multi_shift_add2[multi];
             int neg = 0;
+            int shift_h;
+
             if (mshift < 0)
             {
                 mshift = -mshift;
                 neg = 1;
             }
-            int shift_h = block + 2 + mshift;
+
+            shift_h = block + 2 + mshift;
 
             if (neg)
                 phase -= doshifter(fnum_ps, shift_h);
@@ -544,9 +584,11 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
                 phase += doshifter(fnum_ps, shift_h);
         }
 
-        // vibrato
+        /* vibrato */
         if (pmulti & 0x40)
         {
+            int shift_l;
+            int vibneg;
             int fnum_h = (fnum & 0x380) << 1;
 
             int shift_add = 0;
@@ -555,8 +597,9 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
             if (chip->rhy & 0x40)
                 shift_add++;
 
-            int shift_l = block + shift_add + multi_shift_add1[multi];
-            int vibneg = (chip->counter >> 11) & 1;
+            shift_l = block + shift_add + multi_shift_add1[multi];
+            vibneg = (chip->counter >> 11) & 1;
+
             if (vibneg)
                 phase -= doshifter(fnum_h, shift_l);
             else
@@ -566,12 +609,15 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
             {
                 int mshift = multi_shift_add2[multi];
                 int neg = 0;
+                int shift_h;
+
                 if (mshift < 0)
                 {
                     mshift = -mshift;
                     neg = 1;
                 }
-                int shift_h = block + shift_add + mshift;
+
+                shift_h = block + shift_add + mshift;
 
                 if (neg ^ vibneg)
                     phase -= doshifter(fnum_h, shift_h);
@@ -591,6 +637,7 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
         }
 
         {
+            int rate, ratesum, ratemax, ratezero, dostep, inc, of, slsub, slreach, nextstate;
             int ad = chip->regs[access[7]];
             int sr = chip->regs[access[8]];
             int egt = (pmulti >> 5) & 1;
@@ -599,10 +646,11 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
             int env = slot->env & 0x1ffff;
 
             int sl = (sr >> 4);
+
             if (sl == 15)
                 sl = 28;
 
-            int rate = 0;
+            rate = 0;
             switch (state)
             {
                 case eg_state_attack:
@@ -616,8 +664,9 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
                     break;
             }
 
-            int ratesum = rate << 2;
-            if (pmulti & 0x10) // ksr
+            ratesum = rate << 2;
+
+            if (pmulti & 0x10) /* ksr */
             {
                 ratesum += (fnum >> 9) & 1;
                 ratesum += block << 1;
@@ -628,13 +677,13 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
             if (ratesum & 64)
                 ratesum = 63;
 
-            int ratemax = rate == 15;
-            int ratezero = rate == 0;
+            ratemax = rate == 15;
+            ratezero = rate == 0;
 
             if (ratezero)
                 ratesum = 0;
 
-            int dostep = 0;
+            /*dostep = 0; Value is never read */
             if (ratesum & 32)
                 dostep = 1;
             else
@@ -647,14 +696,16 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
                     && ((chip->counter & 32) == 0 || (ratesum & 24) != 0);
             }
 
-            int inc = 0;
+            inc = 0;
             if (dostep)
             {
+                int shift;
+
                 inc |= (ratesum & 3) << 13;
                 if (!ratezero)
                     inc |= 1 << 15;
 
-                int shift = 0;
+                shift = 0;
                 if (ratesum & 32)
                     shift = (ratesum >> 2) & 7;
 
@@ -671,7 +722,7 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
                 inc = doshifter(inc, shift);
             }
 
-            int of = 0;
+            /* of = 0; Value is never read*/
             if (state == eg_state_attack)
             {
                 env += inc;
@@ -685,17 +736,19 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
             }
             env &= 0x1ffff;
 
-            int slsub = sl << 12;
+            slsub = sl << 12;
 
 
-            int slreach = !(((env + slsub) >> 17) & 1);
+            slreach = !(((env + slsub) >> 17) & 1);
 
             if (slreach)
             {
                 if (state == eg_state_attack && (of || ratemax))
                     env = 0x1ffff;
+
                 if (state == eg_state_decay)
                     env = ((31 - sl) << 12) | 0xfff;
+
                 if (state == eg_state_release && !of)
                     env = 0;
 
@@ -704,25 +757,32 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
             {
                 if (state == eg_state_attack && (of || ratemax))
                     env = 0x1ffff;
+
                 if (state == eg_state_decay && !of)
                     env = ((31 - sl) << 12) | 0xfff;
+
                 if (state == eg_state_release && !of)
                     env = 0;
 
             }
-            int nextstate = 0;
+
+            nextstate = 0;
             if (kon)
                 nextstate = eg_state_attack;
             else
             {
                 if (state == eg_state_decay && egt && !of)
                     nextstate |= 1;
+
                 if ((state & 1) != 0 && ((state & 2) == 0 || !of) && key)
                     nextstate |= 1;
+
                 if (state == eg_state_attack && key)
                     nextstate |= 2;
+
                 if (slreach && egt && state == eg_state_decay)
                     nextstate |= 1;
+
                 if (!slreach && key && (state & 2) != 0 && of)
                     nextstate |= 2;
             }
@@ -731,7 +791,8 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
         }
 
         {
-            //w1338 && (!(is4op&& op == 1) || con); // is4op && op==1 && con ->mute
+            int doout;
+            /* w1338 && (!(is4op&& op == 1) || con); // is4op && op==1 && con ->mute */
             int is4opch = (ch % 9) < 3;
 
             if (chip->dooutput && !(chip->is4op2 && !con))
@@ -751,7 +812,9 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
             chip->wavesample = wave >> 3;
             chip->wavepan = (fb_con >> 4) & 3;
             chip->is4op2 = is4opch && is4op && op == 1;
-            int doout = 0;
+
+            doout = 0;
+
             switch (op)
             {
             case 0:
@@ -777,7 +840,7 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
         }
 
         {
-            // FIXME: runs 13 times per slot on real chip
+            /* FIXME: runs 13 times per slot on real chip */
             uint32_t bit = ((chip->noise >> 10) ^ (chip->noise >> 17)) & 1;
             chip->noise = (chip->noise << 1) | bit;
         }
@@ -843,10 +906,12 @@ void CQM_GenerateResampled(cqm_t* chip, int16_t* buf)
         CQM_Generate(chip, chip->samples);
         chip->samplecnt -= chip->rateratio;
     }
+
     buf[0] = (int16_t)((chip->oldsamples[0] * (chip->rateratio - chip->samplecnt)
         + chip->samples[0] * chip->samplecnt) / chip->rateratio);
     buf[1] = (int16_t)((chip->oldsamples[1] * (chip->rateratio - chip->samplecnt)
         + chip->samples[1] * chip->samplecnt) / chip->rateratio);
+
     chip->samplecnt += 1 << RSM_FRAC;
 }
 
@@ -854,6 +919,7 @@ void CQM_Reset(cqm_t* chip, uint32_t samplerate, uint32_t genrate)
 {
     int i;
     memset(chip, 0, sizeof(cqm_t));
+
     for (i = 0; i < 18; i++)
     {
         chip->regs[regmap[0xc0 + (i % 9) + ((i / 9) << 8)]] = 0x30;
@@ -878,6 +944,7 @@ void CQM_WriteReg(cqm_t* chip, uint16_t reg, uint8_t data)
         chip->newm = data & 1;
         return;
     }
+
     regh &= chip->newm;
 
     index = regmap[(regh << 8) + reg];
@@ -890,16 +957,20 @@ void CQM_WriteReg(cqm_t* chip, uint16_t reg, uint8_t data)
             if ((reg & 0xe0) == 0xe0)
                 data &= 0xfb;
         }
+
         if ((reg & 0xf0) == 0xb0)
             chip->key[regh * 9 + (reg & 0xf)] = (data >> 5) & 1;
+
         chip->regs[index] = data;
         return;
     }
+
     if (!regh && reg == 0xbd)
     {
         chip->rhy = data;
         return;
     }
+
     if (regh && reg == 0x4)
     {
         chip->mode = data & 0x3f;
