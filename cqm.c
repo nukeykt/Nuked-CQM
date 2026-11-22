@@ -282,7 +282,7 @@ void CQM_Generate(cqm_t* chip, int16_t* sample)
             int phase;
             int16_t mulb, mula;
 
-            wf = chip->regs[access[0]];
+            wf = chip->regs[access[0]] & 7;
             phase = slot->phase >> 3;
             phase_in = phase;
 
